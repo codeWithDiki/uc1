@@ -21,11 +21,9 @@ Route::get('/', function () {
 Route::get('/produk', Posts::class);
 
 Route::middleware(['auth:sanctum', 'verified','checkakses:client'])->get('/client', function () {
-	print_r('client');
-    return view('dashboard');
+    return view('liveware.produk');
 })->name('dashboard');
 
 Route::middleware(['auth:sanctum', 'verified','checkakses:cs'])->get('/dashboard', function () {
-	print_r('cs');
     return view('dashboard');
 })->name('dashboard');

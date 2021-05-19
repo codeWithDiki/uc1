@@ -9,22 +9,25 @@ use App\Models\Beli;
 class Posts extends Component
 {	
 	public $posts;
+	public $beli;
 	public $isOpen = 0;
 
     public function render()
     {
     	$this->posts = Post::all();
+    	$this->beli = Beli::all();
+
         return view('livewire.posts');
     }
 
     public function beliProduk($id, $id_pembeli){
     	$this->isOpen = 1;
-    	Beli::UpdateOrCreate([
+    	Beli::Create([
     			'id_produk' => $id,
     			'id_pembeli' => $id_pembeli
     		]
     	);
-    	redirect(view('livewire.posts'));
+    	return view('livewire.posts');
     }
 
     public function closeModal(){
