@@ -19,6 +19,17 @@ class CheckAkses
         if(in_array($request->user()->akses,$akses)){
             return $next($request);
         }
-        return redirect('/');
+        switch ($request->user()->akses) {
+            case 'admin':
+                return redirect('/admin');
+                break;
+            case 'client':
+                return redirect('/client');
+                break;
+            case 'cs':
+                return redirect('/cs');
+                break;
+        }
+        
     }
 }

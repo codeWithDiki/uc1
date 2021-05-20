@@ -97,15 +97,17 @@
 	                        		<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{$value['status']}}</td>
 
 	                        		<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                        		@if($value['status'] !== 'selesai')
+	                        		@if($value['status'] == 'requested')
 	                        		<button wire:click="batalProduk({{$value['id']}}, {{Auth::id()}})" class="bg-red-500 hoverL:bg-red-700 text-white font-bold py-1 px-1 pr-1 pl-1 rounded">
 	                        			Batal
 	                        		</button>
-	                        		<button wire:click="batalProduk({{$value['id']}}, {{Auth::id()}})" class="bg-green-500 hoverL:bg-green-700 text-white font-bold py-1 px-1 pr-1 pl-1 rounded">
+	                        		<button wire:click="pushCS({{$value['id']}}, {{Auth::id()}})" class="bg-green-500 hoverL:bg-green-700 text-white font-bold py-1 px-1 pr-1 pl-1 rounded">
 	                        			Push Notifikasi CS
 	                        		</button>
-	                        		@else
+	                        		@elseif($value['status'] == 'selesai')
 	                        			Transaksi Selesai
+	                        		@else 
+	                        			Transaksi Sedang Diproses
 	                        		@endif
 	                        		</td>
 	                        	</tr>

@@ -17,7 +17,7 @@ class CreateBeliTable extends Migration
             $table->id();
             $table->integer('id_produk');
             $table->integer('id_pembeli');
-            $table->enum('status', ['pending', 'diproses', 'selesai']);
+            $table->enum('status', ['requested','pending', 'diproses', 'selesai']);
             $table->timestamps();
         });
     }

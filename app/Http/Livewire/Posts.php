@@ -27,10 +27,22 @@ class Posts extends Component
     			'id_pembeli' => $id_pembeli
     		]
     	);
-    	return view('livewire.posts');
+    	return redirect('/client');
     }
 
-    public function closeModal(){
-    	$this->isOpen = 0;
+    public function batalProduk($id, $id_p){
+    	Beli::where('id', $id)
+    	->where('id_pembeli', $id_p)
+    	->delete();
+    	redirect('/client');
+    }
+
+    public function pushCS($id, $id_p){
+    	Beli::where('id', $id)
+    	->where('id_pembeli', $id_p)
+    	->update([
+    		'status' => 'pending'
+    	]);
+    	redirect('/client');
     }
 }
