@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Posts;
 use App\Http\Livewire\Cs;
 use App\Http\Livewire\Admin;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/produk/{id}', function ($id) {
+	$produk = Post::all()->where('id',$id);
+	$r = array(
+		'posts' => $produk
+	);
+	if(count($produk) > 0){
+    	return view('produk', $r);
+    }
+    App::abort(404);
+});
+
 
 Route::group(['middleware' => ['auth:sanctum', 'verified','checkakses:client']], function () {
     Route::get('/client', Posts::class)->name('dashboard');
@@ -33,15 +45,3 @@ Route::group(['middleware' => ['auth:sanctum', 'verified','checkakses:cs']], fun
 Route::group(['middleware' => ['auth:sanctum', 'verified','checkakses:admin']], function () {
     Route::get('/admin', Admin::class)->name('dashboard');
 });
-
-Route::middleware(['auth:sanctum', 'verified','checkakses:cs'])->get('/dashboard', function () {
-    return redirect('/cs');
-})->name('dashboard');
-
-Route::middleware(['auth:sanctum', 'verified','checkakses:client'])->get('/dashboard', function () {
-    return redirect('/client');
-})->name('dashboard');
-
-Route::middleware(['auth:sanctum', 'verified','checkakses:admin'])->get('/dashboard', function () {
-    return redirect('/admin');
-})->name('dashboard');
